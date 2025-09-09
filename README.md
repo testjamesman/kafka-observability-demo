@@ -90,14 +90,14 @@ Follow these steps to deploy the entire stack on a fresh Ubuntu EC2 instance.
 
 3.  Connect to your instance via SSH.
 
-**Step 2: Install Docker and Docker Compose** Run the following commands on your EC2 instance to install Docker Engine and the Docker Compose plugin.
+**Step 2: Install Git, Docker, and Docker Compose** Run the following commands on your EC2 instance to install Docker Engine and the Docker Compose plugin.
 
 ```
 # Update package lists
 sudo apt-get update
 
 # Install prerequisites
-sudo apt-get install -y ca-certificates curl gnupg
+sudo apt-get install -y ca-certificates curl gnupg git
 
 # Add Docker's official GPG key
 sudo install -m 0755 -d /etc/apt/keyrings
