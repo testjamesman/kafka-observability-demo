@@ -33,15 +33,6 @@ services:
       KAFKA_BROKER: "kafka:29092"
       MESSAGES_PER_SECOND: "100"
       ERROR_RATE: "0.04"
-      DD_AGENT_HOST: "host.docker.internal"
-      DD_SERVICE: "kafka-producer"
-      DD_ENV: "kafka"
-      DD_LOGS_INJECTION: "true"
-    labels:
-      com.datadoghq.auto_instrumentation.enabled: "true"
-      com.datadoghq.auto_instrumentation.language: "python"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   consumer:
     container_name: consumer
@@ -51,12 +42,3 @@ services:
       - kafka
     environment:
       KAFKA_BROKER: "kafka:29092"
-      DD_AGENT_HOST: "host.docker.internal"
-      DD_SERVICE: "kafka-consumer"
-      DD_ENV: "kafka"
-      DD_LOGS_INJECTION: "true"
-    labels:
-      com.datadoghq.auto_instrumentation.enabled: "true"
-      com.datadoghq.auto_instrumentation.language: "python"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
