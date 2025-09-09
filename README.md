@@ -136,6 +136,14 @@ sudo vim .env
 **Step 4: Build and Run the Stack** Navigate to the root directory of the project (`kafka-observability-demo/`) and run:
 
 ```
+# This command sets up the DD agent to run headless
+DD_APM_INSTRUMENTATION_LIBRARIES=python:3 \
+DD_APM_INSTRUMENTATION_ENABLED=docker \
+DD_NO_AGENT_INSTALL=true \
+bash -c "$(curl -L https://install.datadoghq.com/scripts/install_script_agent7.sh)"
+```
+
+```
 # This command builds the producer/consumer images and starts all containers.
 docker-compose up --build -d
 
