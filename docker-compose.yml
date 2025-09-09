@@ -33,6 +33,7 @@ services:
       KAFKA_BROKER: "kafka:29092"
       MESSAGES_PER_SECOND: "100"
       ERROR_RATE: "0.04"
+      DD_SERVICE: "kafka-demo-producer"
 
   consumer:
     container_name: consumer
@@ -42,6 +43,7 @@ services:
       - kafka
     environment:
       KAFKA_BROKER: "kafka:29092"
+      DD_SERVICE: "kafka-demo-consumer"
 
   dd-agent:
     image: gcr.io/datadoghq/agent:7
