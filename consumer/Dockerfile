@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY consumer.py .
 
 # Command to run the application
-CMD ["python", "consumer.py"]
+CMD ["ddtrace-run", "python", "consumer.py"]

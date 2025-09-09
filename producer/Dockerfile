@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY producer.py .
 
 # Command to run the application
-CMD ["python", "producer.py"]
+CMD ["ddtrace-run", "python", "producer.py"]
