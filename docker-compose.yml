@@ -37,6 +37,9 @@ services:
       DD_SERVICE: "kafka-producer"
       DD_ENV: "kafka"
       DD_LOGS_INJECTION: "true"
+    labels:
+      com.datadoghq.auto_instrumentation.enabled: "true"
+      com.datadoghq.auto_instrumentation.language: "python"
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -52,5 +55,8 @@ services:
       DD_SERVICE: "kafka-consumer"
       DD_ENV: "kafka"
       DD_LOGS_INJECTION: "true"
+    labels:
+      com.datadoghq.auto_instrumentation.enabled: "true"
+      com.datadoghq.auto_instrumentation.language: "python"
     extra_hosts:
       - "host.docker.internal:host-gateway"
