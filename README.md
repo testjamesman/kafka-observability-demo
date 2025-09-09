@@ -16,6 +16,8 @@ The producer sends messages to four distinct Kafka topics (`orders`, `payments`,
 ```
 .
 ├── docker-compose.yml
+├── .env.sample
+├── .gitignore
 ├── producer/
 │   ├── producer.py
 │   ├── Dockerfile
@@ -123,6 +125,13 @@ newgrp docker
 ```
 
 **Step 3: Clone or Create Project Files** Create the project directory and all the files (`docker-compose.yml`, `producer/*`, `consumer/*`) as specified in the **Directory Structure** section above. You can do this with `git clone` if it's in a repository or by creating the files manually.
+
+Copy and update the `.env.sample` to hold your DD API key
+
+```
+sudo cp .env.sample .env
+sudo vim .env
+```
 
 **Step 4: Build and Run the Stack** Navigate to the root directory of the project (`kafka-observability-demo/`) and run:
 
