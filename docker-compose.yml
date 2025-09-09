@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
@@ -14,7 +12,6 @@ services:
     depends_on:
       - zookeeper
     ports:
-      # Expose Kafka to the host machine for potential external tools
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
@@ -24,7 +21,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      # Auto-create our four topics
       KAFKA_CREATE_TOPICS: "orders:1:1,payments:1:1,inventory_updates:1:1,user_activity:1:1"
 
   producer:
@@ -37,6 +33,12 @@ services:
       KAFKA_BROKER: "kafka:29092"
       MESSAGES_PER_SECOND: "100"
       ERROR_RATE: "0.04"
+      DD_AGENT_HOST: "host.docker.internal"
+      DD_SERVICE: "kafka-producer"
+      DD_ENV: "kafka"
+      DD_LOGS_INJECTION: "true"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   consumer:
     container_name: consumer
@@ -46,3 +48,9 @@ services:
       - kafka
     environment:
       KAFKA_BROKER: "kafka:29092"
+      DD_AGENT_HOST: "host.docker.internal"
+      DD_SERVICE: "kafka-consumer"
+      DD_ENV: "kafka"
+      DD_LOGS_INJECTION: "true"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
