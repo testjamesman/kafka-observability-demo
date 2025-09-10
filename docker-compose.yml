@@ -62,7 +62,7 @@ services:
       - DD_LOGS_CONFIG_AUTO_MULTI_LINE_DETECTION=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
       - DD_CONTAINER_EXCLUDE_LOGS=name:dd-agent
-      - DD_APM_FILTER_TAGS_REJECT=["container_name:zookeeper", "container_name:kafka"]
+      - DD_APM_FILTER_TAGS_REJECT="component:jinja2"
     volumes:
       - /var/run/datadog:/var/run/datadog
       - /opt/datadog-agent/run:/opt/datadog-agent/run:rw
