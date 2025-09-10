@@ -22,28 +22,38 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_CREATE_TOPICS: "orders:1:1,payments:1:1,inventory_updates:1:1,user_activity:1:1"
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:29092 --list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   producer:
     container_name: producer
     build:
       context: ./producer
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     environment:
       KAFKA_BROKER: "kafka:29092"
-      MESSAGES_PER_SECOND: "100"
-      ERROR_RATE: "0.04"
+      MESSAGES_PER_SECOND: "1"
+      ERROR_RATE: "0.0"
       DD_SERVICE: "kafka-demo-producer"
+      DD_TRACE_DEBUG: "true"
 
   consumer:
     container_name: consumer
     build:
       context: ./consumer
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     environment:
       KAFKA_BROKER: "kafka:29092"
       DD_SERVICE: "kafka-demo-consumer"
+      DD_TRACE_DEBUG: "true"
 
   dd-agent:
     image: gcr.io/datadoghq/agent:7
@@ -58,7 +68,7 @@ services:
       - DD_APM_RECEIVER_SOCKET=/var/run/datadog/apm.socket
       - DD_DOGSTATSD_SOCKET=/var/run/datadog/dsd.socket
       - DD_LOGS_ENABLED=true
-      - DD_LOG_LEVEL=info
+      - DD_LOG_LEVEL=debug
       - DD_LOGS_CONFIG_AUTO_MULTI_LINE_DETECTION=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
       - DD_CONTAINER_EXCLUDE_LOGS=name:dd-agent
