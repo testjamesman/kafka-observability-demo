@@ -41,7 +41,8 @@ services:
       MESSAGES_PER_SECOND: "1"
       ERROR_RATE: "0.0"
       DD_SERVICE: "kafka-demo-producer"
-      DD_TRACE_DEBUG: "true"
+      DD_TRACE_DEBUG: "false"
+      DD_DATA_STREAMS_ENABLED: "true"
 
   consumer:
     container_name: consumer
@@ -53,7 +54,8 @@ services:
     environment:
       KAFKA_BROKER: "kafka:29092"
       DD_SERVICE: "kafka-demo-consumer"
-      DD_TRACE_DEBUG: "true"
+      DD_TRACE_DEBUG:  "false"
+      DD_DATA_STREAMS_ENABLED: "true"
 
   dd-agent:
     image: gcr.io/datadoghq/agent:7
@@ -68,7 +70,7 @@ services:
       - DD_APM_RECEIVER_SOCKET=/var/run/datadog/apm.socket
       - DD_DOGSTATSD_SOCKET=/var/run/datadog/dsd.socket
       - DD_LOGS_ENABLED=true
-      - DD_LOG_LEVEL=debug
+      - DD_LOG_LEVEL=info
       - DD_LOGS_CONFIG_AUTO_MULTI_LINE_DETECTION=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
       - DD_CONTAINER_EXCLUDE_LOGS=name:dd-agent
