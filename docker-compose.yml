@@ -38,10 +38,10 @@ services:
         condition: service_healthy
     environment:
       KAFKA_BROKER: "kafka:29092"
-      MESSAGES_PER_SECOND: "1"
-      ERROR_RATE: "0.0"
+      MESSAGES_PER_SECOND: "100"
+      ERROR_RATE: "0.05"
       DD_AGENT_HOST: "dd-agent"
-      #DD_SERVICE: "kafka-demo-producer"
+      DD_SERVICE: "kafka-demo-producer"
       DD_ENV: "kafka"
       DD_LOGS_INJECTION: "true"
       DD_TRACE_DEBUG: "false"
@@ -59,7 +59,7 @@ services:
     environment:
       KAFKA_BROKER: "kafka:29092"
       DD_AGENT_HOST: "dd-agent"
-      #DD_SERVICE: "kafka-demo-consumer"
+      DD_SERVICE: "kafka-demo-consumer"
       DD_ENV: "kafka"
       DD_LOGS_INJECTION: "true"
       DD_TRACE_DEBUG:  "false"
