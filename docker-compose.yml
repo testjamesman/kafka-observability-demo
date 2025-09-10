@@ -41,11 +41,13 @@ services:
       MESSAGES_PER_SECOND: "1"
       ERROR_RATE: "0.0"
       DD_AGENT_HOST: "dd-agent"
-      DD_SERVICE: "kafka-demo-producer"
+      #DD_SERVICE: "kafka-demo-producer"
       DD_ENV: "kafka"
       DD_LOGS_INJECTION: "true"
       DD_TRACE_DEBUG: "false"
       DD_DATA_STREAMS_ENABLED: "true"
+      DD_KAFKA_PROPAGATION_ENABLED: "true"
+      DD_KAFKA_SERVICE: "kafka-demo-producer"
 
   consumer:
     container_name: consumer
@@ -57,11 +59,13 @@ services:
     environment:
       KAFKA_BROKER: "kafka:29092"
       DD_AGENT_HOST: "dd-agent"
-      DD_SERVICE: "kafka-demo-consumer"
+      #DD_SERVICE: "kafka-demo-consumer"
       DD_ENV: "kafka"
       DD_LOGS_INJECTION: "true"
       DD_TRACE_DEBUG:  "false"
       DD_DATA_STREAMS_ENABLED: "true"
+      DD_KAFKA_PROPAGATION_ENABLED: "true"
+      DD_KAFKA_SERVICE: "kafka-demo-consumer"
 
   dd-agent:
     image: gcr.io/datadoghq/agent:7
